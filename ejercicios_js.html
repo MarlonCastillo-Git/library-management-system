@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de JavaScript - Kodigo</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+            background: #f9f9f9;
+            color: #222;
+        }
+        h1 {
+            color: #1a1a1a;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        h2.titulo {
+            margin-top: 35px;
+            color: #2c3e50;
+            background: #e8f5e9;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+        .resultado {
+            background: #fff;
+            border-left: 4px solid #4CAF50;
+            padding: 10px 14px;
+            margin: 6px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 14px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        .resultado.error {
+            border-left-color: #e53935;
+            background: #ffebee;
+        }
+        .resultado .comentario {
+            color: #888;
+            font-style: italic;
+        }
+        .form-box {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .form-box input, .form-box select {
+            padding: 6px 8px;
+            margin: 4px 0;
+            font-size: 14px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover { background: #45a049; }
+        #resultadoValidacion { font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <h1>🧪 Ejemplos de JavaScript</h1>
+    <p>Cada resultado se imprime automáticamente en esta página al cargarla.</p>
+
+    <div id="salida"></div>
+
+    <h2 class="titulo">11. Validador de email interactivo</h2>
+    <div class="form-box">
+        <input type="email" id="email" placeholder="correo@ejemplo.com">
+        <button onclick="validar()">Validar</button>
+        <p id="resultadoValidacion"></p>
+    </div>
+
+    <script>
+        // ============================================
+        // Helpers para imprimir en pantalla
+        // ============================================
+        function print(texto) {
+            const salida = document.getElementById("salida");
+            const linea = document.createElement("div");
+            linea.className = "resultado";
+            linea.textContent = texto;
+            salida.appendChild(linea);
+        }
+
+        function titulo(texto) {
+            const salida = document.getElementById("salida");
+            const h = document.createElement("h2");
+            h.className = "titulo";
+            h.textContent = texto;
+            salida.appendChild(h);
+        }
+
+        // ============================================
+        // 1. Tipos de datos básicos
+        // ============================================
+        titulo("1. Tipos de datos básicos");
+
+        let nombre = "Ana";
+        let edad = 25;
+        let esEstudiante = true;
+        let auto = null;
+        let direccion;
+        let colores = ["rojo", "azul", "verde"];
+        let persona = { nombre: "Ana", edad: 25 };
+
+        print("typeof nombre → " + typeof nombre);
+        print("typeof edad → " + typeof edad);
+        print("typeof esEstudiante → " + typeof esEstudiante);
+        print("typeof auto (null) → " + typeof auto);
+        print("typeof direccion (undefined) → " + typeof direccion);
+        print("colores → " + JSON.stringify(colores));
+        print("persona → " + JSON.stringify(persona));
+
+        // ============================================
+        // 2. Función simple con parámetro
+        // ============================================
+        titulo("2. Función saludar()");
+
+        function saludar(nombre) {
+            return `Hola, ${nombre}!`;
+        }
+
+        print(saludar("Carlos"));
+
+        // ============================================
+        // 3. Función con valor por defecto
+        // ============================================
+        titulo("3. Función calcularPrecio() con valor por defecto");
+
+        function calcularPrecio(precio, descuento = 0) {
+            return precio - (precio * descuento / 100);
+        }
+
+        print("calcularPrecio(100, 10) = " + calcularPrecio(100, 10));
+        print("calcularPrecio(100) = " + calcularPrecio(100));
+
+        // ============================================
+        // 4. Función flecha (arrow function)
+        // ============================================
+        titulo("4. Función flecha multiplicar()");
+
+        const multiplicar = (a, b) => a * b;
+
+        print("multiplicar(4, 5) = " + multiplicar(4, 5));
+
+        // ============================================
+        // 5. Función con array
+        // ============================================
+        titulo("5. Función sumarArray()");
+
+        function sumarArray(numeros) {
+            let total = 0;
+            for (let numero of numeros) {
+                total += numero;
+            }
+            return total;
+        }
+
+        print("sumarArray([10, 20, 30]) = " + sumarArray([10, 20, 30]));
+
+        // ============================================
+        // 6. Función con condicional (booleano)
+        // ============================================
+        titulo("6. Función esMayorDeEdad()");
+
+        function esMayorDeEdad(edad) {
+            return edad >= 18;
+        }
+
+        print("esMayorDeEdad(20) = " + esMayorDeEdad(20));
+        print("esMayorDeEdad(15) = " + esMayorDeEdad(15));
+
+        // ============================================
+        // 7. Diferencias entre formas de "imprimir"
+        // ============================================
+        titulo("7. Formas de mostrar información");
+
+        print("console.log() → aparece en la consola (F12), no aquí");
+        console.log("Este mensaje solo se ve en la consola del navegador");
+        print("document.write() → escribe directo en el HTML (poco usado hoy)");
+        print("innerText / innerHTML → la forma moderna de mostrar contenido");
+
+        // ============================================
+        // 8. Manipular el DOM (ejemplo simple)
+        // ============================================
+        titulo("8. Manipulación del DOM");
+        print("Este mismo texto que ves se generó con document.createElement() + appendChild()");
+
+        // ============================================
+        // 9. Función que crea contenido dinámico
+        // ============================================
+        titulo("9. mostrarSaludo() con innerHTML");
+
+        function mostrarSaludo(nombre) {
+            return `<strong>¡Hola, ${nombre}!</strong> (esto usa innerHTML)`;
+        }
+
+        const saludoDiv = document.createElement("div");
+        saludoDiv.className = "resultado";
+        saludoDiv.innerHTML = mostrarSaludo("Kodigo");
+        document.getElementById("salida").appendChild(saludoDiv);
+
+        // ============================================
+        // 10. Función con array de objetos
+        // ============================================
+        titulo("10. aprobados() - array de objetos + filter()");
+
+        const estudiantes = [
+            { nombre: "Ana", nota: 85 },
+            { nombre: "Luis", nota: 60 },
+            { nombre: "Marta", nota: 92 }
+        ];
+
+        function aprobados(lista) {
+            return lista.filter(est => est.nota >= 70);
+        }
+
+        print("Estudiantes aprobados: " + JSON.stringify(aprobados(estudiantes)));
+
+        // ============================================
+        // 11. Validación de email (interactivo, ver formulario arriba)
+        // ============================================
+        function validar() {
+            const email = document.getElementById("email").value;
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const mensaje = document.getElementById("resultadoValidacion");
+
+            if (regex.test(email)) {
+                mensaje.textContent = "Email válido ✅";
+                mensaje.style.color = "#2e7d32";
+            } else {
+                mensaje.textContent = "Email inválido ❌";
+                mensaje.style.color = "#c62828";
+            }
+        }
+    </script>
+
+</body>
+</html>
